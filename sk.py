@@ -32,19 +32,19 @@ def place1():
 
 def current():
     day=datetime.datetime.today().weekday()
-    if day==4 and str(datetime.datetime.now().time)>'22:20:00.000000':
+    if day==4 and str(datetime.datetime.now().time)>'15:00:00.000000':
         status1=True
     else:
         status1=False
     return(status1)
         
 def hours():
-    clock=datetime.datetime.now().time
-    if str(clock)>'22:25:00.000000' or str(clock)<'08:15:00.000000':
+    clock=datetime.datetime.now().time()
+    if str(clock)>'23:15:00.000000' or str(clock)<'08:15:00.000000':
         status2=True
     else:
         status2=False
-        return(status2)
+    return(status2)
 
 
 
@@ -265,23 +265,27 @@ def loop():
     data = data[data['stock'].notna()]
     data = data[data.change != '0.0000']
     return(data)
-
-
+c=0
+with place1().container():
+    st.write('Loading')
 # In[ ]:
 
 
 while True:
-    c=0
+    print(current())
+    print(hours())
     print("tick")
 
     if current()==True:
         place1().text('Market is closed')
-        time.sleep(232,200)
         print('deep-sleep')
+        time.sleep(232,200)
+        
     elif hours()==True:
         place1().text('Market is closed')
-        time.sleep(900)
         print('normal-sleep')
+        time.sleep(900)
+        
     else:
         place1().text('Market is open')
         data=loop()
