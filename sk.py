@@ -32,7 +32,7 @@ def place1():
 
 def current():
     day=datetime.datetime.today().weekday()
-    if day==4 and str(datetime.datetime.now().time)>'15:00:00.000000':
+    if day==4 and str(datetime.datetime.now().time)>'15:30:00.000000':
         status1=True
     else:
         status1=False
@@ -40,7 +40,7 @@ def current():
         
 def hours():
     clock=datetime.datetime.now().time()
-    if str(clock)>'23:15:00.000000' or str(clock)<'08:15:00.000000':
+    if str(clock)>'15:30:00.000000' or str(clock)<'08:15:00.000000':
         status2=True
     else:
         status2=False
