@@ -40,7 +40,7 @@ def current():
         
 def hours():
     clock=datetime.datetime.now().time()
-    if str(clock)>'23:43:00.000000' or str(clock)<'08:15:00.000000':
+    if str(clock)>'23:55:00.000000' or str(clock)<'08:15:00.000000':
         status2=True
     else:
         status2=False
