@@ -305,7 +305,7 @@ while True:
         fig.update_traces(marker_line_width = 0.5)
         #fig.data[0].customdata = np.column_stack([price_, change_percentage_,ticker_])
         #fig.data[0].texttemplate = "Ticker:%{customdata[2]}<br>Price:$%{customdata[0]}<br>Percentage Change:%{customdata[1]:.2f}%"
-        st.write(fig.show())
+        st.plotly_chart(fig, use_container_width=True, sharing="streamlit")
         with place().container():
             st.header('Athens Stock Exchange Tree Map')
             st.subheader("This is a map that shows the Greek stock market's performance. The map is being refreshed every 10 minutes.")
