@@ -12,10 +12,11 @@ import plotly.offline as pyo
 import plotly.express as px
 import plotly.graph_objs as go
 import time
+import streamlit as st
 
 
 # In[3]:
-
+st.header('Athens Stock Exchange Market Map')
 
 url = 'https://www.capital.gr/finance/el/allstocks/1'
 result =requests.get(url)
