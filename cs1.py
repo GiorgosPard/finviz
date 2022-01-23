@@ -363,23 +363,30 @@ data = data[data.change != '0.0000']
 
 
 # In[421]:
+try:
+    st.write(data.stock[1])
+except:
+    pass
 
+data.to_csv('finviz1.csv')
+df=pd.read_csv('finviz1.csv')
 
-data.to_csv('finviz.csv')
-
-
+try:
+    st.write(df.stock[1])
+except:
+    pass
 # In[358]:
 
 
-price_=data.price.tolist()
-change_percentage_=data.change_percentage.tolist()
-ticker_=data.ticker.tolist()
+price_=df.price.tolist()
+change_percentage_=df.change_percentage.tolist()
+ticker_=df.ticker.tolist()
 
 
 # In[404]:
 
 
-fig=px.treemap(data, path=[px.Constant('Athens Stock Exchange'),'group','ticker'],values = 'capitalization', color = 'change_percentage',color_continuous_scale=['Red','Red','Red','Red','Red','Red','Red','crimson','firebrick','gray','Green','limegreen','limegreen','lime','lime','lime','lime','lime','lime'],color_continuous_midpoint=0)
+fig=px.treemap(df, path=[px.Constant('Athens Stock Exchange'),'group','ticker'],values = 'capitalization', color = 'change_percentage',color_continuous_scale=['Red','Red','Red','Red','Red','Red','Red','crimson','firebrick','gray','Green','limegreen','limegreen','lime','lime','lime','lime','lime','lime'],color_continuous_midpoint=0)
 fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
 fig.update_traces(marker_line=dict(color="black"))
 fig.update_traces(marker_line_width = 0.5)
