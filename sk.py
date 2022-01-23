@@ -309,7 +309,7 @@ while True:
             st.header('Athens Stock Exchange Tree Map')
             st.subheader("This is a map that shows the Greek stock market's performance. The map is being refreshed every 10 minutes.")
             st.write('To view in full screen, hover your mouse over the map and click on the expand arrows on the top right corner')
-            st.plotly_chart(fig, use_container_width=False, sharing="streamlit")
+            st.plotly_chart(fig, use_container_width=True, sharing="streamlit", **kwargs)
             st.write('last update at: '+str(datetime.datetime.now()))
             st.write(c)
     c=c+1
