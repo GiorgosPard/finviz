@@ -40,7 +40,7 @@ def current():
         
 def hours():
     clock=datetime.datetime.now().time()
-    if str(clock)>'23:55:00.000000' or str(clock)<'08:15:00.000000':
+    if str(clock)>'15:30:00.000000' or str(clock)<'00:00:00.000000':
         status2=True
     else:
         status2=False
@@ -89,6 +89,7 @@ def loop():
     capitalization = [] 
     ticker=[]
     market=[]
+    tickerperc = []
 
     c=0
     for i in quotes:
@@ -106,6 +107,7 @@ def loop():
 
             try:
                 price.append(soup2.find('h3',{'class':'price bold'}).span.text.replace(',','.'))
+                
             except:
                 price.append(np.nan)
 
@@ -123,8 +125,10 @@ def loop():
             try:
                 z=changes[1].text.replace('(','').replace(')','').replace(',','.').replace('%','')
                 change_percentage.append(float((z)))
+                tickerperc.append(str(str(i)+' \n'+str(float((z))))+'%')
             except: 
                 change_percentage.append(np.nan)
+                tickerperc.append(np.nan)
             try:
                 financial_data = soup2.find('div',{'class':'finance__details__right'}).find_all('span')
             except:
@@ -252,6 +256,7 @@ def loop():
     'change': change,
     'change_percentage' : change_percentage,
     'group': group,
+    'tickerperc': tickerperc,
     #'open' : open,
     #'high' : high,
     #'low' : low,
@@ -294,12 +299,12 @@ while True:
         price_=data.price.tolist()
         change_percentage_=data.change_percentage.tolist()
         ticker_=data.ticker.tolist()
-        fig=px.treemap(data, path=[px.Constant('Athens Stock Exchange'),'group','ticker'],values = 'capitalization', color = 'change_percentage',color_continuous_scale=['Red','Red','Red','Red','Red','Red','Red','crimson','firebrick','gray','Green','limegreen','limegreen','lime','lime','lime','lime','lime','lime'],color_continuous_midpoint=0)
+        fig=px.treemap(data, path=[px.Constant('Athens Stock Exchange'),'group','tickerperc'],values = 'capitalization', color = 'change_percentage',color_continuous_scale=['Red','Red','Red','Red','Red','Red','Red','crimson','firebrick','gray','Green','limegreen','limegreen','lime','lime','lime','lime','lime','lime'],color_continuous_midpoint=0)
         fig.update_layout(margin = dict(t=50, l=25, r=25, b=25))
         fig.update_traces(marker_line=dict(color="black"))
         fig.update_traces(marker_line_width = 0.5)
-        fig.data[0].customdata = np.column_stack([price_, change_percentage_,ticker_])
-        fig.data[0].texttemplate = "Ticker:%{customdata[2]}<br>Price:$%{customdata[0]}<br>Percentage Change:%{customdata[1]:.2f}%"
+        #fig.data[0].customdata = np.column_stack([price_, change_percentage_,ticker_])
+        #fig.data[0].texttemplate = "Ticker:%{customdata[2]}<br>Price:$%{customdata[0]}<br>Percentage Change:%{customdata[1]:.2f}%"
         with place().container():
             st.header('Athens Stock Exchange Tree Map')
             st.subheader("This is a map that shows the Greek stock market's performance. The map is being refreshed every 10 minutes.")
